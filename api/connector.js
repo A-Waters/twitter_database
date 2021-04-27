@@ -17,7 +17,6 @@ const DBconnection = {
       connection.query( sql, 
       (err, rows, fields) => {
         if ( err ) { return reject( err );}
-        console.log("bot of makeQuery");
         resolve(rows);
       })
       
@@ -27,6 +26,15 @@ const DBconnection = {
 
 
   // USER RELATED GETS
+  
+  //login
+  login(username, password_hash){
+    var val = this.makeQuery('select * \
+    from user\
+	    where u_handle = "'+username+'"  and u_pass_hash = "'+password_hash+'"')
+    return val;
+  },
+
 
   getUser(id) {
     var val = this.makeQuery('select * \
@@ -104,9 +112,8 @@ const DBconnection = {
         pass_hash + '");'
     )
     val.catch( (err) => {
-      console.error("TEST123",err)
+      console.error("CreateUser",err)
     })
-    console.log("Bottom of create");
     return val
   },
 

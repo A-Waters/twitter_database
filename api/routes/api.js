@@ -1,4 +1,5 @@
 var express = require('express');
+var md5 = require('md5');
 var router = express.Router();
 var DBclient = require('../connector.js');
 
@@ -83,20 +84,33 @@ router.get('/get/responses/:id/', function(req, res, next) {
 });
 
 
-router.put('/post/user/:id/:fn/:ln/:username/:pass_hash/', function(req, res, next) {
-    var respon = DBclient.creatUser(req.params.id, req.params.fn, req.params.ln, req.params.username, req.params.pass_hash,)
-    console.log("top of put", respon);
 
+
+//put values
+router.put('/put/user/:id/:fn/:ln/:username/:pass_hash/', function(req, res, next) {
+    var respon = DBclient.creatUser(req.params.id, req.params.fn, req.params.ln, req.params.username, md5(req.params.pass_hash))
     respon.then( (rez) => {
-        console.log("We out here");
         res.json(rez);
     });
     respon.catch( (err) => {
-        console.log("We in here");
-        console.error("UHOH", err);
         next(err);
     });
-    console.log("Bottom of put");
 });
+
+
+//post values 
+router.get('/login/:username/:pass_raw',
+function(req, res, next) {
+    var respon = DBclient.login(req.params.username, md5(req.params.pass_raw))
+    respon.then( (rez) => {
+        res.json(rez);
+    });
+    respon.catch( (err) => {
+        console.error("login api:", err)
+        next(err);
+    });
+    
+});
+
 
 module.exports = router;
