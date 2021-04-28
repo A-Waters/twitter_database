@@ -4,11 +4,13 @@ import styles from './style.module.css';
 import {Container, Row, Col} from 'react-bootstrap';
 import DBclient from '../../DBclient';
 import {BrowserRouter} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
 
 function LoginBox() {
      
     const [DBerror, setError] = useState("null")
     const { register, handleSubmit, formState: { errors }, } = useForm();
+    let history = useHistory();
     
     const onSubmit = (data) => {
         DBclient.login(data).then( res => {
@@ -16,6 +18,7 @@ function LoginBox() {
             if (res.data.length > 0){
                 console.log("success")
                 DBclient.currentUser = res.data[0].UID
+                history.push('/home/')
             }
             else
             {

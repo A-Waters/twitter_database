@@ -1,0 +1,23 @@
+.outside_container{
+    max-width: 40%;
+    max-height: 60%;
+    background-color: azure;
+    border-radius: 35px;
+    overflow: hidden;
+}
+
+.inside_container{
+    padding: 20px;
+}
+
+.scroller{
+    max-height: 600px;
+}
+
+
+*{
+    -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+    display: none;
+}
