@@ -16,7 +16,7 @@ function HomeCenter() {
             history.push('/')
         }
         else{
-            DBclient.currentUser = 2
+            DBclient.currentUser = 2 // CHANGE THIS BEFORE SENDING
             DBclient.getUserbyID(DBclient.currentUser).then((res) => {
                 setUserData(res.data[0])
                 DBclient.getUserTimeline(res.data[0].UID).then( (res) => {
