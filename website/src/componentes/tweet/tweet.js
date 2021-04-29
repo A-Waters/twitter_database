@@ -1,58 +1,205 @@
 import { useEffect, useState } from 'react';
 import styles from './style.module.css';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import DBclient from '../../DBclient'
 
 function Tweet(props) {
-    const [tweetData, setTweetData] = useState(null)
-    const [ownerData, setOwnerData] = useState(null)
+    
+    function getUser(ID) {
+        return DBclient.getUserbyID(ID)
+    }
+
+    const tweetData = props.tweetData
+    const ProfileData = props.UprofileData
+    const [TweetAuthorData, setTweetAuthorData] = useState(null)
     const [likes, setLikes] = useState()
     const [replies, setReplies] = useState()
     const [retweets, setRetweets] = useState()
+    
+    useEffect(()=>{
+        getUser(tweetData.author_UID).then((res) => {
+            setTweetAuthorData(res.data[0])
+        });
 
-    useEffect(() => {
-        setTweetData(props.TLData)
-        setOwnerData(props.uData)
-        //console.log(props.TLData)
-    },[] )
+        DBclient.getLikesOfTweet(tweetData.TID).then(res =>{
+            setLikes(res.data.length)
+        })
+
+        DBclient.getRepostsOfTweet(tweetData.TID).then(res =>{
+            setRetweets(res.data.length)
+        })
+    }, [])
+    
+   
+    function updatedProfile(user_data){
+        props.onChange(user_data);
+        props.onProfile("Profile")
+    }
+
+    function likeTweet(){
+        DBclient.UserLikeTweetEvent(DBclient.currentUser.UID, tweetData.TID, tweetData.author_UID)
+        setLikes(likes + 1)
+    }
+
+    function repostTweet(){
+        DBclient.UserRepostTweetEvent(DBclient.currentUser.UID, tweetData.TID, tweetData.author_UID)
+        setRetweets(retweets + 1)
+    }
+
+
 
     
-
     return (
         <div className={styles.outerBounds}>
-            {tweetData !== null ? (
-                <Container>
+            
+            {TweetAuthorData != null ? (<>
+            
+                {tweetData.type === "Original" ? 
+                (
+                <>
                     <Row>
-                        <Col xs>
-                            {ownerData.ufn} {ownerData.uln}
-                        </Col>
-                        <Col xs>
-                            {ownerData.u_handle}
+                        <Col>
+                            <Button variant="link" onClick={() => updatedProfile(TweetAuthorData)}>{TweetAuthorData.ufn} {TweetAuthorData.uln}</Button>
                         </Col>
                     </Row>
                     <Row>
+                        <Col>
+                            <p>{tweetData.text}</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>{likes}</p> <Button onClick={() => likeTweet()}>Likes</Button>
+                        </Col>
+                        <Col>
+                            <p>{retweets}</p> <Button onClick={() => repostTweet()}>Repost</Button>
+                        </Col>
+                    </Row>
 
-                    {
-                        tweetData.response_tweet_TID !== null ? 
-                        
-                        (
+                    
+                </>
+                )
+
+                :
+
+                (
+                <>
+                
+                {tweetData.type === "Repost" ? 
+                (
+                <>
+                    <Row>
                         <Col>
-                            <p className={styles.username}> replying to {tweetData.u_handle} </p>
+                            <Button variant="link" onClick={() => updatedProfile(TweetAuthorData)}>{TweetAuthorData.ufn} {TweetAuthorData.uln}</Button>
                         </Col>
-                        )
-                        :
-                        (<></>)
-                     }
                     </Row>
                     <Row>
                         <Col>
-                            <p className={styles.tweettext}> {tweetData.text} </p>
+                            <p>Reposted by {ProfileData.ufn} {ProfileData.uln}</p>
                         </Col>
                     </Row>
-                </Container>
-            ) : (<></>)  
+                    <Row>
+                        <Col>
+                            <p>{tweetData.text}</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>{likes}</p> <Button onClick={() => likeTweet()}>Likes</Button>
+                        </Col>
+                        <Col>
+                            <p>{retweets}</p> <Button onClick={() => repostTweet()}>Repost</Button>
+                        </Col>
+                    </Row>
+                    
+                </>
+                )
+
+                :
+
+                (
+                <>
+                    {tweetData.type === "Like" ? 
+                (
+                <>
+                    <Row>
+                        <Col>
+                            <Button variant="link" onClick={() => updatedProfile(TweetAuthorData)}>{TweetAuthorData.ufn} {TweetAuthorData.uln}</Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>Liked by {ProfileData.ufn} {ProfileData.uln}</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>{tweetData.text}</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p>{likes}</p> <Button onClick={() => likeTweet()}>Likes</Button>
+                        </Col>
+                        <Col>
+                            <p>{retweets}</p> <Button onClick={() => repostTweet()}>Repost</Button>
+                        </Col>
+                    </Row>
+                    
+                </>
+                )
+
+                :
+
+                (
+                <>
+
+                    
+                
+                
+                
+                
+                </>
+                )
+                }
+                    
+                
+                
+                
+                
+                </>
+                )
+                }
+
+
+
+
+
+
+
+
+
+
+
+                
+                
+                
+                
+                
+                </>
+                )
+                }
+
+
+            
+            </>) 
+            
+            : 
+            
+            (<><p>Loading</p></>)
+            
             }
-
+            
         </div>
     );
 }

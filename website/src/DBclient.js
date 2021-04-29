@@ -16,8 +16,16 @@ const DBclient = {
         return await this.makeGetRequest('get/user/'+userID)
     },
 
-    async getTweetsByUser(userID){
-        return await this.makeGetRequest('get/userPost/'+userID)
+    async getAllTweetsByUser(userID){
+        return await this.makeGetRequest('get/allUserPost/'+userID)
+    },
+
+    async getNoReplyTweetsByUser(userID){
+        return await this.makeGetRequest('get/NoReplyPost/'+userID)
+    },
+
+    async getReplyTweetsByUser(userID){
+        return await this.makeGetRequest('get/ReplyPost/'+userID)
     },
 
     async getUserTimeline(userID){
@@ -31,6 +39,31 @@ const DBclient = {
     async getUserLikes(userID){
         return await this.makeGetRequest('get/likes/'+userID)
     },
+
+    async getTweetByID(TweetID){
+        return await this.makeGetRequest('get/tweet/'+TweetID)
+    },
+
+    async getFollowers(userID){
+        return await this.makeGetRequest('get/followers/'+userID)
+    },
+
+    async getFollowing(userID){
+        return await this.makeGetRequest('get/following/'+userID)
+    },
+
+    async getLikesOfTweet(TweetID){
+        return await this.makeGetRequest('get/tweet/likes/'+TweetID)
+    },
+
+    async getRepostsOfTweet(TweetID){
+        return await this.makeGetRequest('get/tweet/repost/'+TweetID)
+    },
+
+    async getAllTweets(){
+        return await this.makeGetRequest('get/post/all/')
+    },
+
 
 
     // puts
@@ -49,8 +82,23 @@ const DBclient = {
             + data.username + "/"
             + data.password + "/")
         })        
-    }
+    },
 
+    async UserLikeTweetEvent(userID,TweetID,aUID){
+        return await this.makePutRequest('like/user/'+userID+'/tweet/'+TweetID+'/Author/'+aUID+'')
+    },
+
+    async UserRepostTweetEvent(userID,TweetID,aUID){
+        return await this.makePutRequest('repost/user/'+userID+'/tweet/'+TweetID+'/Author/'+aUID+'')
+    },
+
+    async CreatePost(TweetID,userID,text){
+        return await this.makePutRequest('post/'+TweetID+'/'+userID+'/'+text+'/')
+    },
+
+    async FollowEvent(followie,follower){
+        return await this.makePutRequest('follow/'+followie+'/'+follower+'/')
+    },
 
 }
 

@@ -13,11 +13,12 @@ function LoginBox() {
     let history = useHistory();
     
     const onSubmit = (data) => {
+
         DBclient.login(data).then( res => {
             console.log(res)
             if (res.data.length > 0){
                 console.log("success")
-                DBclient.currentUser = res.data[0].UID
+                DBclient.currentUser = res.data[0]
                 history.push('/home/')
             }
             else
