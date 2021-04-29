@@ -13,31 +13,31 @@ This will be done in four parts
 If you don't have the files locally downloaded already you can always use git or just download the zip from above
 
 ### 3. Configure and building database
-1.Inside the './database' folder there are two SQL scripts. 
+1. Inside the './database' folder there are two SQL scripts. 
 You will need to run both of these scripts in your sql server. 
 - first run './database/Generate_Database.sql', this will simply generates a schema called 'twitter'. 
 - Second run './database/insert.sql', this creates fake uses and interactions between those use such as tweeting, liking, reposting and following.
 
-2.Once these files are created you just need to give express.js your login info so it can access the server.
+2. Once these files are created you just need to give express.js your login info so it can access the server.
 This can be done by modifying './api/connector.js' lines 4 and 5 
 
 # Starting the project
-1.open a command prompt (as admin to be safe)
-2.cd into the project directory (where this file resides on your computer)
-3.Open another command prompt with the command 
+1. open a command prompt (as admin to be safe)
+2. cd into the project directory (where this file resides on your computer)
+3. Open another command prompt with the command 
 > start cmd.exe
-4.in one terminal run the commands 
+4. in one terminal run the commands 
 > cd api 
 > 
 > npm install
 > 
 > npm start
-5.in the other terminal run the other commands
+5. in the other terminal run the other commands
 > cd website 
 > npm install
 > 
 > npm start
-6.doing this and waiting about 2-3 minuets (hyperbole for precaution) will then start the website in your default browser. If this dose not happen the website can be reached at : http://localhost:3000
+6. doing this and waiting about 2-3 minuets (hyperbole for precaution) will then start the website in your default browser. If this dose not happen the website can be reached at : http://localhost:3000
 
 
 # Whats going on?
