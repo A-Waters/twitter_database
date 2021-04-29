@@ -28,11 +28,14 @@ This can be done by modifying './api/connector.js' lines 4 and 5
 > start cmd.exe
 4. in one terminal run the commands 
 > cd api 
+> 
 > npm install
+> 
 > npm start
 5. in the other terminal run the other commands
 > cd website 
 > npm install
+> 
 > npm start
 6. doing this and waiting about 2-3 minuets (hyperbole for precaution) will then start the website in your default browser. If this dose not happen the website can be reached at : http://localhost:3000
 
