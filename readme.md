@@ -21,7 +21,7 @@ You will need to run both of these scripts in your sql server.
 Once these files are created you just need to give express.js your login info so it can access the server.
 This can be done by modifying './api/connector.js' lines 4 and 5 
 
-### Starting the project
+# Starting the project
 1. open a command prompt (as admin to be safe)
 2. cd into the project directory (where this file resides on your computer)
 3. Open another command prompt with the command 
