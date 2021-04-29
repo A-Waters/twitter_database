@@ -34,9 +34,11 @@ This can be done by modifying './api/connector.js' lines 4 and 5
 > npm start
 5. in the other terminal run the other commands
 > cd website 
+> 
 > npm install
 > 
 > npm start
+Note: If this dosnt work and npm command is not identified you fucked up your node.js install. (Most likely didnt add it to your env path, just look for the check box durring install)
 6. doing this and waiting about 2-3 minuets (hyperbole for precaution) will then start the website in your default browser. If this dose not happen the website can be reached at : http://localhost:3000
 
 
