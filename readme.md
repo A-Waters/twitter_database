@@ -6,11 +6,11 @@ Its bare-bones okay and doesn't support EVERYTHING twitter supports due to only 
 This will be done in four parts 
 
 ### 1. assumptions 
-    1a. you have a localhost mysql server running on port 3306 
-    1b. you have node.js installed ([if you don't have it installed heres the link] (https://nodejs.org/en/))
+1a. you have a localhost mysql server running on port 3306 
+1b. you have node.js installed ( [if you don't have it installed heres the link] (https://nodejs.org/en/) )
 
 ### 2. Downloading files
-    If you don't have the files locally downloaded already you can always use git or just download the zip from above
+If you don't have the files locally downloaded already you can always use git or just download the zip from above
 
 ### 3. Configure and building database
 Inside the './database' folder there are two SQL scripts. 
