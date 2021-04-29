@@ -15,8 +15,8 @@ If you don't have the files locally downloaded already you can always use git or
 ### 3. Configure and building database
 1.Inside the './database' folder there are two SQL scripts. 
 You will need to run both of these scripts in your sql server. 
-1.'./database/Generate_Database.sql' simply generates a schema called 'twitter'
-2.'./database/insert.sql' creates fake uses and interactions between those use such as tweeting, liking, reposting and following.
+run './database/Generate_Database.sql' first, this will simply generates a schema called 'twitter'. 
+Second run './database/insert.sql'. This creates fake uses and interactions between those use such as tweeting, liking, reposting and following.
 
 2.Once these files are created you just need to give express.js your login info so it can access the server.
 This can be done by modifying './api/connector.js' lines 4 and 5 
