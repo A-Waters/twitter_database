@@ -47,6 +47,6 @@ We created a mySQl database under the schema 'twitter' this is where we host and
 ### API (express.js)
 To communicate your front end with our back end database we need a way for them to communicate. This is where express.js comes into play. There are two main files I toyed with and that would be './api/routes/api.js' and './api/connector.js'. api.js holds all of the endpoints that our front end will be sending messages to. It then takes these messages and sends them './api/connector.js'. from there './api/connector.js' makes the correct queries to the database using SQL code and send the results of the database back to the './api/routes/api.js'. './api/routes/api.js' takes those responses and puts them into a json and send them back to the front end.
 
-note: you can make get request in your browser directly to the API by going to eg. 'http://localhost7536/get/post/all'
+note: you can make get request in your browser directly to the API by going to eg. 'http://localhost:7536/get/post/all'
 ### Website (React.js)
 The Front end of our program was built in react.js. If you are unfamiliar with react.js, think of it as an object oriented way of building websites in almost complete javascript. All relevant files are contained in the './website/src/' folder. The program starts at index.js and builds out from there. If you are looking for the communication from the front end to the API, it can all be found in './website/DBclient.js'. This is where all gets and puts request are made to the API by passing in variables to this global objects methods. 
